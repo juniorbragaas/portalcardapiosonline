@@ -1,4 +1,4 @@
-# React Admin Clientes — V2
+# Portal Cardapios Online
 
 Projeto administrativo full stack com arquitetura em camadas.
 
