@@ -3,7 +3,7 @@ const User = require('../models/User');
 module.exports = {
   findAll() {
     return User.findAll({
-      attributes: ['id', 'login', 'usertype', 'createdAt', 'updatedAt'],
+      attributes: ['id', 'login', 'usertype', 'id_empresa', 'createdAt', 'updatedAt'],
       order: [['id', 'ASC']]
     });
   },

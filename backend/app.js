@@ -9,6 +9,7 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 const productRoutes = require('./routes/productRoutes');
+const cardapioRoutes = require('./routes/cardapioRoutes');
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/usuarios', userRoutes);
 app.use('/api/clientes', clientRoutes);
 app.use('/api/produtos', productRoutes);
+app.use('/api/cardapio', cardapioRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(errorHandler);

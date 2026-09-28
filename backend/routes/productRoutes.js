@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const multer = require('multer');
 const controller = require('../controllers/productController');
-const { authenticate, adminOnly } = require('../middlewares/auth');
+const { authenticate, adminOnly, userOrAdmin, ownsEmpresa } = require('../middlewares/auth');
+const Product = require('../models/Product');
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -14,181 +15,28 @@ const upload = multer({
   }
 });
 
-router.use(authenticate, adminOnly);
+// ── Endpoint público de imagem (sem auth) ────────────────────
+router.get('/:id/foto', async (req, res) => {
+  try {
+    const product = await Product.findByPk(req.params.id, { attributes: ['foto_produto'] });
+    if (!product?.foto_produto) return res.status(404).end();
+    res.set('Content-Type', 'image/jpeg');
+    res.set('Cache-Control', 'public, max-age=3600');
+    res.send(product.foto_produto);
+  } catch { res.status(500).end(); }
+});
 
-/**
- * @swagger
- * tags:
- *   name: Produtos
- *   description: Gerenciamento de produtos (somente ADMIN)
- */
+// Todas as rotas abaixo exigem autenticação
+router.use(authenticate);
 
-/**
- * @swagger
- * /api/produtos:
- *   get:
- *     summary: Lista todos os produtos (sem foto para performance)
- *     tags: [Produtos]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: id_empresa
- *         schema:
- *           type: integer
- *         description: Filtra produtos por empresa
- *     responses:
- *       200:
- *         description: Lista de produtos
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/ProdutoSummary'
- */
-router.get('/', controller.list);
+// GET / e GET /:id — ADMIN vê tudo, USER vê só sua empresa (filtrado no controller)
+router.get('/',    userOrAdmin, controller.list);
+router.get('/:id', userOrAdmin, ownsEmpresa, controller.getById);
 
-/**
- * @swagger
- * /api/produtos/{id}:
- *   get:
- *     summary: Busca produto por ID (com foto em base64)
- *     tags: [Produtos]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Produto encontrado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Produto'
- *       404:
- *         description: Produto não encontrado
- */
-router.get('/:id', controller.getById);
-
-/**
- * @swagger
- * /api/produtos:
- *   post:
- *     summary: Cria um novo produto
- *     tags: [Produtos]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             required:
- *               - nome_produto
- *               - id_empresa
- *               - valor
- *             properties:
- *               nome_produto:
- *                 type: string
- *                 example: Produto X
- *               descricao:
- *                 type: string
- *                 example: Descrição detalhada do produto.
- *               id_empresa:
- *                 type: integer
- *                 example: 1
- *               valor:
- *                 type: number
- *                 format: float
- *                 example: 99.90
- *               foto_produto:
- *                 type: string
- *                 format: binary
- *     responses:
- *       201:
- *         description: Produto criado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Produto'
- *       400:
- *         description: Dados inválidos
- *       404:
- *         description: Empresa não encontrada
- */
-router.post('/', upload.single('foto_produto'), controller.create);
-
-/**
- * @swagger
- * /api/produtos/{id}:
- *   put:
- *     summary: Atualiza um produto
- *     tags: [Produtos]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     requestBody:
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               nome_produto:
- *                 type: string
- *               descricao:
- *                 type: string
- *               id_empresa:
- *                 type: integer
- *               valor:
- *                 type: number
- *                 format: float
- *               foto_produto:
- *                 type: string
- *                 format: binary
- *     responses:
- *       200:
- *         description: Produto atualizado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Produto'
- *       404:
- *         description: Produto não encontrado
- */
-router.put('/:id', upload.single('foto_produto'), controller.update);
-
-/**
- * @swagger
- * /api/produtos/{id}:
- *   delete:
- *     summary: Remove um produto
- *     tags: [Produtos]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Produto excluído
- *       404:
- *         description: Produto não encontrado
- */
-router.delete('/:id', controller.remove);
+// POST, PUT, DELETE — USER pode operar, mas restrito à sua empresa
+router.post('/',    userOrAdmin,              upload.single('foto_produto'), controller.create);
+router.put('/:id',  userOrAdmin, ownsEmpresa, upload.single('foto_produto'), controller.update);
+router.delete('/:id', userOrAdmin, ownsEmpresa, controller.remove);
 
 /**
  * @swagger

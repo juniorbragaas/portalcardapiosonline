@@ -101,7 +101,8 @@ async function dashboard() {
   return {
     usuarios:       await require('../repositories/userRepository').count(),
     clientes:       await repository.count(),
-    clientesAtivos: await repository.countActive()
+    clientesAtivos: await repository.countActive(),
+    produtos:       await require('../repositories/productRepository').count()
   };
 }
 

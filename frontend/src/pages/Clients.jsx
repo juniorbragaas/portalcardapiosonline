@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Plus, Pencil, Trash2, Search, Image as ImageIcon } from 'lucide-react';
+import { Plus, Pencil, Trash2, Search, Image as ImageIcon, ExternalLink } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
 const EMPTY = {
@@ -8,6 +9,8 @@ const EMPTY = {
   logo: null, banner: null
 };
 
+const API = 'http://localhost:3000/api';
+
 export default function Clients() {
   const [clients,  setClients]  = useState([]);
   const [form,     setForm]     = useState(EMPTY);
@@ -15,6 +18,7 @@ export default function Clients() {
   const [search,   setSearch]   = useState('');
   const [previews, setPreviews] = useState({ logo: null, banner: null });
   const [alert,    setAlert]    = useState(null);
+  const navigate = useNavigate();
 
   async function load() {
     const { data } = await api.get('/clientes');
@@ -22,14 +26,26 @@ export default function Clients() {
   }
   useEffect(() => { load(); }, []);
 
-  function openNew()   { setForm(EMPTY); setPreviews({ logo: null, banner: null }); setAlert(null); setEditing(0); }
-  function openEdit(c) {
-    setForm({
-      nome_completo: c.nome_completo, alias: c.alias || '', endereco: c.endereco || '',
-      email: c.email || '', celular: c.celular || '', descricao: c.descricao || '',
-      status: c.status, logo: null, banner: null
-    });
+  function openNew() {
+    setForm(EMPTY);
     setPreviews({ logo: null, banner: null });
+    setAlert(null);
+    setEditing(0);
+  }
+
+  async function openEdit(c) {
+    // Busca registro completo (com BLOBs em base64) para mostrar imagens existentes
+    const { data } = await api.get(`/clientes/${c.id}`);
+    setForm({
+      nome_completo: data.nome_completo, alias: data.alias || '',
+      endereco: data.endereco || '', email: data.email || '',
+      celular: data.celular || '', descricao: data.descricao || '',
+      status: data.status, logo: null, banner: null
+    });
+    setPreviews({
+      logo:   data.logo   || null,
+      banner: data.banner || null
+    });
     setAlert(null);
     setEditing(c.id);
   }
@@ -108,9 +124,13 @@ export default function Clients() {
                 <tr key={c.id}>
                   <td>{c.id}</td>
                   <td>
-                    {c.logo
-                      ? <img className="thumb" src={c.logo} alt="" />
-                      : <div className="thumb-placeholder"><ImageIcon size={18} /></div>}
+                    <img
+                      className="thumb"
+                      src={`${API}/clientes/${c.id}/logo`}
+                      alt=""
+                      onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextElementSibling.style.display = 'flex'; }}
+                    />
+                    <div className="thumb-placeholder" style={{ display: 'none' }}><ImageIcon size={18} /></div>
                   </td>
                   <td><strong>{c.nome_completo}</strong></td>
                   <td>{c.alias || '—'}</td>
@@ -122,6 +142,15 @@ export default function Clients() {
                   </td>
                   <td>
                     <div className="td-actions">
+                      <button
+                        className="btn btn-accent btn-sm btn-icon"
+                        title="Ver cardápio público"
+                        onClick={() => navigate(`/${c.alias}`)}
+                        disabled={!c.alias}
+                        style={{ opacity: c.alias ? 1 : 0.4 }}
+                      >
+                        <ExternalLink size={15} />
+                      </button>
                       <button className="btn btn-outline btn-sm btn-icon" onClick={() => openEdit(c)}><Pencil size={15} /></button>
                       <button className="btn btn-danger  btn-sm btn-icon" onClick={() => remove(c.id)}><Trash2 size={15} /></button>
                     </div>
@@ -179,14 +208,18 @@ export default function Clients() {
 
               <div className="form-row">
                 <div className="form-group">
-                  <label>Logo</label>
+                  <label>Logo {previews.logo ? '— atual abaixo' : ''}</label>
                   <input type="file" accept="image/*" onChange={e => pickFile('logo', e)} />
-                  {previews.logo && <img className="preview-img" src={previews.logo} alt="Preview logo" />}
+                  {previews.logo && (
+                    <img className="preview-img" src={previews.logo} alt="Logo atual" />
+                  )}
                 </div>
                 <div className="form-group">
-                  <label>Banner</label>
+                  <label>Banner {previews.banner ? '— atual abaixo' : ''}</label>
                   <input type="file" accept="image/*" onChange={e => pickFile('banner', e)} />
-                  {previews.banner && <img className="preview-img" src={previews.banner} alt="Preview banner" />}
+                  {previews.banner && (
+                    <img className="preview-img" src={previews.banner} alt="Banner atual" />
+                  )}
                 </div>
               </div>
 

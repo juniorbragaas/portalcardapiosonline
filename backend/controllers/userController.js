@@ -18,9 +18,13 @@ async function getById(req, res, next) {
 
 async function create(req, res, next) {
   try {
-    // aceita tanto "type" quanto "usertype" no body
-    const { login, password, type, usertype } = req.body;
-    res.status(201).json(await service.create({ login, password, usertype: type || usertype }));
+    const { login, password, type, usertype, id_empresa } = req.body;
+    res.status(201).json(await service.create({
+      login,
+      password,
+      usertype:   type || usertype,
+      id_empresa: id_empresa || null
+    }));
   } catch (e) {
     next(e);
   }
@@ -28,9 +32,13 @@ async function create(req, res, next) {
 
 async function update(req, res, next) {
   try {
-    // aceita tanto "type" quanto "usertype" no body
-    const { login, password, type, usertype } = req.body;
-    res.json(await service.update(req.params.id, { login, password, usertype: type || usertype }));
+    const { login, password, type, usertype, id_empresa } = req.body;
+    res.json(await service.update(req.params.id, {
+      login,
+      password,
+      usertype:   type || usertype,
+      id_empresa: id_empresa !== undefined ? id_empresa : undefined
+    }));
   } catch (e) {
     next(e);
   }

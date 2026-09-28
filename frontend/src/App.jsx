@@ -8,6 +8,7 @@ import Admin    from './pages/Admin';
 import Users    from './pages/Users';
 import Clients  from './pages/Clients';
 import Products from './pages/Products';
+import Cardapio from './pages/Cardapio';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
       {/* ── Rotas públicas (com header/footer/menu) ── */}
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/:alias" element={<Cardapio />} />
 
         {/* ── Rotas protegidas (admin) ── */}
         <Route element={<PrivateRoute />}>

@@ -1,17 +1,20 @@
 import { useState } from 'react';
 import { Outlet, Link, useNavigate } from 'react-router-dom';
-import { Home, ShieldCheck, LogOut, Menu, X, Package, Building2, Users } from 'lucide-react';
+import { Home, ShieldCheck, LogOut } from 'lucide-react';
 import LoginModal from './LoginModal';
 
 export default function Layout() {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [loginOpen, setLoginOpen]   = useState(false);
-  const navigate  = useNavigate();
-  const token     = localStorage.getItem('token');
-  const user      = JSON.parse(localStorage.getItem('user') || 'null');
+  const [drawerOpen,  setDrawerOpen]  = useState(false);
+  const [loginOpen,   setLoginOpen]   = useState(false);
+  const [headerTitle, setHeaderTitle] = useState(null); // null = padrão
+  const [headerLogo,  setHeaderLogo]  = useState(null); // null = sem logo
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  const user  = JSON.parse(localStorage.getItem('user') || 'null');
 
   function logout() {
     localStorage.clear();
+    sessionStorage.removeItem('empresa');
     setDrawerOpen(false);
     navigate('/');
   }
@@ -22,11 +25,33 @@ export default function Layout() {
     else setLoginOpen(true);
   }
 
+  const brandText = headerTitle ?? 'Cardapios Online - Sistemas';
+
   return (
     <div className="pub-wrap">
       {/* ── Fixed Header ── */}
       <header className="pub-header">
-        <Link className="pub-brand" to="/">Cardapios Online - Sistemas</Link>
+        <Link
+          className="pub-brand"
+          to="/"
+          style={{ display: 'flex', alignItems: 'center', gap: 10 }}
+        >
+          {headerLogo && (
+            <img
+              src={headerLogo}
+              alt="Logo"
+              style={{
+                height: 38,
+                width: 38,
+                objectFit: 'cover',
+                borderRadius: 8,
+                border: '2px solid rgba(255,255,255,0.25)',
+                flexShrink: 0
+              }}
+            />
+          )}
+          <span>{brandText}</span>
+        </Link>
 
         <button
           className={`hamburger${drawerOpen ? ' open' : ''}`}
@@ -42,7 +67,23 @@ export default function Layout() {
         <div className="drawer-overlay" onClick={() => setDrawerOpen(false)}>
           <nav className="drawer" onClick={e => e.stopPropagation()}>
             <div className="drawer-header">
-              <span className="drawer-brand">Cardapios Online</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                {headerLogo && (
+                  <img
+                    src={headerLogo}
+                    alt="Logo"
+                    style={{
+                      height: 32,
+                      width: 32,
+                      objectFit: 'cover',
+                      borderRadius: 6,
+                      border: '2px solid rgba(255,255,255,0.25)',
+                      flexShrink: 0
+                    }}
+                  />
+                )}
+                <span className="drawer-brand">{brandText}</span>
+              </div>
               <button className="drawer-close" onClick={() => setDrawerOpen(false)}>×</button>
             </div>
 
@@ -68,7 +109,7 @@ export default function Layout() {
 
       {/* ── Main Content ── */}
       <main className="pub-main">
-        <Outlet />
+        <Outlet context={{ setHeaderTitle, setHeaderLogo }} />
       </main>
 
       {/* ── Fixed Footer ── */}
@@ -76,7 +117,6 @@ export default function Layout() {
         © {new Date().getFullYear()} Cardapíos Online — Todos os direitos reservados
       </footer>
 
-      {/* ── Login Modal ── */}
       {loginOpen && (
         <LoginModal
           onClose={() => setLoginOpen(false)}

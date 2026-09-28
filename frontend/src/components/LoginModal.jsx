@@ -15,6 +15,12 @@ export default function LoginModal({ onClose, onSuccess }) {
       const { data } = await api.post('/auth/login', form);
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
+      // Armazena dados da empresa na sessão (apenas para USER)
+      if (data.empresa) {
+        sessionStorage.setItem('empresa', JSON.stringify(data.empresa));
+      } else {
+        sessionStorage.removeItem('empresa');
+      }
       onSuccess();
     } catch (err) {
       setError(err.response?.data?.message || 'Erro ao autenticar');

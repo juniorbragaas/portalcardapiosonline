@@ -1,7 +1,31 @@
 const router = require('express').Router();
 const multer = require('multer');
 const controller = require('../controllers/clientController');
-const { authenticate, adminOnly } = require('../middlewares/auth');
+const { authenticate, adminOnly, userOrAdmin } = require('../middlewares/auth');
+const Client = require('../models/Client');
+const clientService = require('../services/clientService');
+
+// ── Endpoints públicos de imagem (sem auth) ──────────────────
+// Servem o BLOB diretamente para poder usar em <img src="...">
+router.get('/:id/logo', async (req, res) => {
+  try {
+    const client = await Client.findByPk(req.params.id, { attributes: ['logo'] });
+    if (!client?.logo) return res.status(404).end();
+    res.set('Content-Type', 'image/jpeg');
+    res.set('Cache-Control', 'public, max-age=3600');
+    res.send(client.logo);
+  } catch { res.status(500).end(); }
+});
+
+router.get('/:id/banner', async (req, res) => {
+  try {
+    const client = await Client.findByPk(req.params.id, { attributes: ['banner'] });
+    if (!client?.banner) return res.status(404).end();
+    res.set('Content-Type', 'image/jpeg');
+    res.set('Cache-Control', 'public, max-age=3600');
+    res.send(client.banner);
+  } catch { res.status(500).end(); }
+});
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -18,6 +42,16 @@ const uploadFields = upload.fields([
   { name: 'logo',   maxCount: 1 },
   { name: 'banner', maxCount: 1 }
 ]);
+
+// ── Rota acessível para USER: retorna dados da empresa vinculada ao token ──
+router.get('/minha-empresa', authenticate, userOrAdmin, async (req, res, next) => {
+  try {
+    const id = req.user?.id_empresa;
+    if (!id) return res.status(403).json({ message: 'Nenhuma empresa vinculada ao seu usuário' });
+    const empresa = await clientService.getById(id);
+    res.json(empresa);
+  } catch (err) { next(err); }
+});
 
 router.use(authenticate, adminOnly);
 

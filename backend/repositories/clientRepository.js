@@ -8,6 +8,9 @@ const LIST_ATTRIBUTES = [
 ];
 
 module.exports = {
+  findByAlias(alias) {
+    return Client.findOne({ where: { alias } });
+  },
   findAll() {
     return Client.findAll({
       attributes: LIST_ATTRIBUTES,
