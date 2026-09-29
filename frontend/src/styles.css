@@ -835,7 +835,7 @@ tr:hover td { background: #fafafa; }
   border-bottom: 1px solid var(--border);
 }
 
-.product-card-body {
+  .product-card-body {
   padding: 16px;
   flex: 1;
   display: flex;
@@ -847,11 +847,14 @@ tr:hover td { background: #fafafa; }
   font-weight: 700;
   margin: 0;
 }
+/* Limita a descrição a uma linha com reticências */
 .product-card-body p {
   font-size: 13px;
   color: var(--muted);
-  flex: 1;
   margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .product-card-price {
   font-size: 18px;
@@ -873,6 +876,16 @@ tr:hover td { background: #fafafa; }
   text-align: center;
   padding: 80px 20px;
   color: var(--muted);
+}
+
+@media (max-width: 1024px) {
+  /* Oculta banner e logo em tablets e celulares */
+  .cardapio-banner,
+  .cardapio-banner-placeholder,
+  .cardapio-logo,
+  .cardapio-logo-placeholder {
+    display: none !important;
+  }
 }
 
 @media (max-width: 640px) {

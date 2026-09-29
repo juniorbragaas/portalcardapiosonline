@@ -24,7 +24,30 @@ export default function Clients() {
     const { data } = await api.get('/clientes');
     setClients(data);
   }
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    load();
+
+    function onReload(e) {
+      if (!e?.detail || e.detail.target === 'clients') load();
+      // atualiza thumbs dinamicamente: força re-render incrementando token
+      if (e?.detail && e.detail.refreshThumbs) setPreviews(p => ({ ...p }));
+    }
+    function onStorage(e) {
+      if (e.key === 'data:reload' && e.newValue) {
+        try {
+          const payload = JSON.parse(e.newValue);
+          if (!payload || payload.target === 'clients') load();
+        } catch {}
+      }
+    }
+
+    window.addEventListener('data:reload', onReload);
+    window.addEventListener('storage', onStorage);
+    return () => {
+      window.removeEventListener('data:reload', onReload);
+      window.removeEventListener('storage', onStorage);
+    };
+  }, []);
 
   function openNew() {
     setForm(EMPTY);
@@ -69,6 +92,9 @@ export default function Clients() {
       if (editing === 0) await api.post('/clientes', fd);
       else               await api.put(`/clientes/${editing}`, fd);
       setAlert({ type: 'success', msg: 'Empresa salva com sucesso.' });
+      // Notifica outras abas/componentes que devem recarregar clients
+      window.dispatchEvent(new CustomEvent('data:reload', { detail: { target: 'clients', refreshThumbs: true } }));
+      localStorage.setItem('data:reload', JSON.stringify({ target: 'clients', ts: Date.now(), refreshThumbs: true }));
       load();
       setTimeout(close, 1200);
     } catch (err) {
@@ -78,7 +104,12 @@ export default function Clients() {
 
   async function remove(id) {
     if (!confirm('Deseja excluir esta empresa?')) return;
-    try { await api.delete(`/clientes/${id}`); load(); }
+    try { await api.delete(`/clientes/${id}`);
+      // Notifica reload para clients
+      window.dispatchEvent(new CustomEvent('data:reload', { detail: { target: 'clients' } }));
+      localStorage.setItem('data:reload', JSON.stringify({ target: 'clients', ts: Date.now() }));
+      load();
+    }
     catch (err) { alert(err.response?.data?.message || 'Erro.'); }
   }
 

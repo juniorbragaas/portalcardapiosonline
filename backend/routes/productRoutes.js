@@ -38,6 +38,9 @@ router.post('/',    userOrAdmin,              upload.single('foto_produto'), con
 router.put('/:id',  userOrAdmin, ownsEmpresa, upload.single('foto_produto'), controller.update);
 router.delete('/:id', userOrAdmin, ownsEmpresa, controller.remove);
 
+// Atualiza documentação Swagger para incluir id_categoria no summary
+
+
 /**
  * @swagger
  * components:

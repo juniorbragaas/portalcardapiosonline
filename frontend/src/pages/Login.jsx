@@ -34,7 +34,7 @@ export default function Login() {
         {error && <div className="error">{error}</div>}
         <button className="primary full">Entrar</button>
       </form>
-      <small>Primeiro acesso: admin / admin123</small>
+     
     </div>
   );
 }

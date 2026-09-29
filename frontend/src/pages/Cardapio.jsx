@@ -41,7 +41,7 @@ function ProdutoModal({ produto, onClose }) {
 
       {/* Conteúdo */}
       <div className="produto-fullpage-body">
-        <h2>{produto.nome_produto}</h2>
+        <h2>{String(produto.id).padStart(4, '0')} — {produto.nome_produto}</h2>
         {produto.descricao && <p>{produto.descricao}</p>}
         <span className="produto-fullpage-price">
           {produto.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
@@ -57,10 +57,28 @@ export default function Cardapio() {
   const { setHeaderTitle, setHeaderLogo } = useOutletContext();
   const [empresa,        setEmpresa]        = useState(null);
   const [products,       setProducts]       = useState([]);
+  const [categories,     setCategories]     = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [showAllCategories, setShowAllCategories] = useState(false);
+  const MAX_VISIBLE = 6;
   const [search,         setSearch]         = useState('');
   const [loading,        setLoading]        = useState(true);
   const [notFound,       setNotFound]       = useState(false);
   const [produtoSelecionado, setProdutoSelecionado] = useState(null);
+  const [showTop, setShowTop] = useState(false);
+  const [isScrollable, setIsScrollable] = useState(false);
+
+  useEffect(() => {
+    function check() {
+      const scrollable = document.documentElement.scrollHeight > window.innerHeight;
+      setIsScrollable(scrollable);
+      setShowTop(scrollable && window.scrollY > 200);
+    }
+    check();
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check);
+    return () => { window.removeEventListener('scroll', check); window.removeEventListener('resize', check); };
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -69,10 +87,19 @@ export default function Cardapio() {
       .then(({ data }) => {
         setEmpresa(data.empresa);
         setProducts(data.products);
+        // Prepara lista de categorias a partir dos produtos (únicos, ordenados)
+        const cats = Array.from(new Map(data.products
+          .filter(p => p.categoria)
+          .map(p => [String(p.categoria.id), p.categoria])
+        ).values());
+        setCategories(cats);
+
         // Título usa nome_completo (não alias)
         const titulo = `Cardapios Online - ${data.empresa.nome_completo}`;
         setHeaderTitle(titulo);
         setHeaderLogo(data.empresa.logo || null);
+        // O cabeçalho não deve ser clicável nesta página
+        if (typeof setHeaderClickable === 'function') setHeaderClickable(false);
         document.title = titulo;
       })
       .catch(err => {
@@ -83,13 +110,29 @@ export default function Cardapio() {
     return () => {
       setHeaderTitle(null);
       setHeaderLogo(null);
+      // Restaura clique padrão ao sair da página
+      if (typeof setHeaderClickable === 'function') setHeaderClickable(true);
       document.title = 'Portal Administrativo';
     };
   }, [alias]);
 
-  const filtered = products.filter(p =>
-    `${p.nome_produto} ${p.descricao || ''}`.toLowerCase().includes(search.toLowerCase())
-  );
+  // Ordena por rank (peso) desc, id asc antes de filtrar
+  const sorted = [...products].sort((a, b) => {
+    const ra = a.rank ?? 0;
+    const rb = b.rank ?? 0;
+    if (ra !== rb) return rb - ra; // maior rank primeiro
+    return (a.id || 0) - (b.id || 0); // id crescente
+  });
+
+  const filtered = sorted.filter(p => {
+    const q = search.trim().toLowerCase();
+    const text = `${p.nome_produto} ${p.descricao || ''}`.toLowerCase();
+    const matchesText = q ? text.includes(q) : true;
+    const idStr = String(p.id);
+    const matchesId = q ? (idStr.includes(q) || idStr.padStart(4, '0').includes(q)) : false;
+    const matchesCategory = categoryFilter ? String(p.id_categoria) === String(categoryFilter) : true;
+    return (matchesText || matchesId) && matchesCategory;
+  });
 
   /* ── Loading ── */
   if (loading) {
@@ -164,15 +207,61 @@ export default function Cardapio() {
 
       {/* Toolbar de pesquisa */}
       <div className="cardapio-toolbar">
-        <div className="cardapio-search">
-          <Search size={16} />
-          <input
-            placeholder="Pesquisar no cardápio..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            aria-label="Pesquisar produtos"
-          />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div className="cardapio-search">
+            <Search size={16} />
+            <input
+              placeholder="Pesquisar no cardápio..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              aria-label="Pesquisar produtos"
+            />
+          </div>
+
+          {/* Botões de filtro por categoria */}
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+            <button
+              type="button"
+              onClick={() => setCategoryFilter('')}
+              style={{
+                padding: '6px 10px', borderRadius: 6, border: '1px solid #e5e7eb',
+                background: categoryFilter === '' ? '#111827' : '#fff',
+                color: categoryFilter === '' ? '#fff' : '#111827', cursor: 'pointer'
+              }}
+            >
+              Todas as categorias
+            </button>
+
+            {categories.slice(0, showAllCategories ? categories.length : MAX_VISIBLE).map(c => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => setCategoryFilter(String(c.id))}
+                style={{
+                  padding: '6px 10px', borderRadius: 6, border: '1px solid #e5e7eb',
+                  background: String(categoryFilter) === String(c.id) ? '#111827' : '#fff',
+                  color: String(categoryFilter) === String(c.id) ? '#fff' : '#111827', cursor: 'pointer'
+                }}
+              >
+                {c.nome}
+              </button>
+            ))}
+
+            {categories.length > MAX_VISIBLE && (
+              <button
+                type="button"
+                onClick={() => setShowAllCategories(v => !v)}
+                style={{
+                  padding: '6px 10px', borderRadius: 6, border: '1px dashed #9ca3af',
+                  background: '#fff', color: '#111827', cursor: 'pointer'
+                }}
+              >
+                {showAllCategories ? 'Mostrar menos' : `Mais (${categories.length - MAX_VISIBLE})`}
+              </button>
+            )}
+          </div>
         </div>
+
         <span className="cardapio-count">
           {filtered.length} {filtered.length === 1 ? 'item' : 'itens'}
         </span>
@@ -180,6 +269,27 @@ export default function Cardapio() {
 
       {/* Grid de produtos */}
       <div className="cardapio-grid">
+
+      {/* Footer fixo com botão voltar ao topo (sempre presente) */}
+      <footer style={{
+        position: 'fixed', left: 0, right: 0, bottom: 0, height: 56,
+        background: '#fafafa', display: 'flex', alignItems: 'center',
+        justifyContent: 'flex-end', padding: '0 20px', boxShadow: '0 -4px 8px rgba(0,0,0,0.04)', zIndex: 80
+      }}>
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Voltar ao topo"
+          disabled={!isScrollable}
+          style={{
+            padding: '8px 12px', borderRadius: 8, border: '1px solid #eaeef2',
+            background: '#ffffff', color: '#6b7280', cursor: isScrollable ? 'pointer' : 'default',
+            opacity: isScrollable ? 1 : 0.5, display: 'flex', alignItems: 'center', gap: 8
+          }}
+        >
+          <ArrowLeft style={{ transform: 'rotate(180deg)' }} />
+          <span style={{ fontSize: 13 }}>Topo</span>
+        </button>
+      </footer>
         {filtered.length === 0 ? (
           <div className="cardapio-empty">
             <UtensilsCrossed size={40} />
@@ -209,7 +319,7 @@ export default function Cardapio() {
                 </div>
               )}
               <div className="product-card-body">
-                <h3>{p.nome_produto}</h3>
+                <h3>{String(p.id).padStart(4, '0')} — {p.nome_produto}</h3>
                 {p.descricao && <p>{p.descricao}</p>}
                 <span className="product-card-price">
                   {p.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}

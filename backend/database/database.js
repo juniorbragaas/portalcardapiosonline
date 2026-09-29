@@ -11,10 +11,16 @@ async function initDatabase() {
   const User = require('../models/User');
   const Client = require('../models/Client');
   const Product = require('../models/Product');
+  const Category = require('../models/Category');
 
   // Associações necessárias para includes/joins
   Product.belongsTo(Client, { foreignKey: 'id_empresa', as: 'empresa' });
   Client.hasMany(Product,   { foreignKey: 'id_empresa', as: 'produtos' });
+
+  // Produto -> Categoria (opcional)
+  Product.belongsTo(Category, { foreignKey: 'id_categoria', as: 'categoria' });
+  Category.hasMany(Product,  { foreignKey: 'id_categoria', as: 'produtos' });
+
   // Nota: User.belongsTo(Client) não é declarado aqui pois o SQLite
   // não suporta adicionar FK constraints via ALTER TABLE — o campo
   // id_empresa em User é gerenciado manualmente sem constraint de FK.

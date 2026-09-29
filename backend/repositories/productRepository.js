@@ -1,10 +1,11 @@
 const Product = require('../models/Product');
 const Client = require('../models/Client');
+const Category = require('../models/Category');
 
 // Campos sem BLOB para listagens
 const LIST_ATTRIBUTES = [
   'id', 'nome_produto', 'descricao',
-  'id_empresa', 'valor', 'createdAt', 'updatedAt'
+  'id_empresa', 'id_categoria', 'rank', 'valor', 'createdAt', 'updatedAt'
 ];
 
 module.exports = {
@@ -15,6 +16,10 @@ module.exports = {
         model: Client,
         as: 'empresa',
         attributes: ['id', 'nome_completo', 'alias']
+      }, {
+        model: Category,
+        as: 'categoria',
+        attributes: ['id', 'nome']
       }],
       order: [['id', 'ASC']]
     });
@@ -28,6 +33,10 @@ module.exports = {
         model: Client,
         as: 'empresa',
         attributes: ['id', 'nome_completo', 'alias']
+      }, {
+        model: Category,
+        as: 'categoria',
+        attributes: ['id', 'nome']
       }],
       order: [['id', 'ASC']]
     });
@@ -39,6 +48,10 @@ module.exports = {
         model: Client,
         as: 'empresa',
         attributes: ['id', 'nome_completo', 'alias']
+      }, {
+        model: Category,
+        as: 'categoria',
+        attributes: ['id', 'nome']
       }]
     });
   },

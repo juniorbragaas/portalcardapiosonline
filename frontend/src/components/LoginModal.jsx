@@ -69,7 +69,7 @@ export default function LoginModal({ onClose, onSuccess }) {
             </button>
           </form>
 
-          <span className="login-hint">Primeiro acesso: admin / admin123</span>
+          
         </div>
       </div>
     </div>

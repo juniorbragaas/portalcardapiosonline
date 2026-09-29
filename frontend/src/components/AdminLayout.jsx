@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Users, Building2, Package,
-  LogOut, Home, ChevronLeft, ChevronRight, ExternalLink
+  LogOut, Home, ChevronLeft, ChevronRight, ExternalLink, QrCode
 } from 'lucide-react';
 
 export default function AdminLayout() {
@@ -72,6 +72,12 @@ export default function AdminLayout() {
             <span className="nav-label">Produtos</span>
           </NavLink>
 
+          {/* Categorias — todos */}
+          <NavLink to="/admin/categorias">
+            <Building2 size={18} />
+            <span className="nav-label">Categorias</span>
+          </NavLink>
+
           <div className="sidebar-section">Sistema</div>
 
           <NavLink to="/">
@@ -79,12 +85,27 @@ export default function AdminLayout() {
             <span className="nav-label">Página inicial</span>
           </NavLink>
 
+          {/* Cardápios públicos — só ADMIN */}
+          {isAdmin && (
+            <NavLink to="/admin/cardapios">
+              <ExternalLink size={18} />
+              <span className="nav-label">Cardápios</span>
+            </NavLink>
+          )}
+
           {/* Ir para página da empresa — só USER */}
           {!isAdmin && empresaAlias && (
-            <NavLink to={`/${empresaAlias}`}>
-              <ExternalLink size={18} />
-              <span className="nav-label">Ver cardápio</span>
-            </NavLink>
+            <>
+              <NavLink to="/admin/cardapio-qrcode">
+                <QrCode size={18} />
+                <span className="nav-label">Cardápio QRCODE</span>
+              </NavLink>
+
+              <NavLink to={`/${empresaAlias}`}>
+                <ExternalLink size={18} />
+                <span className="nav-label">Ver cardápio</span>
+              </NavLink>
+            </>
           )}
         </nav>
 

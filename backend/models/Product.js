@@ -27,6 +27,19 @@ const Product = sequelize.define('Product', {
       key: 'id'
     }
   },
+  id_categoria: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'categorias',
+      key: 'id'
+    }
+  },
+  rank: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0
+  },
   valor: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
