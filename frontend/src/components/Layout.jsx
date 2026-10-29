@@ -31,27 +31,30 @@ export default function Layout() {
     <div className="pub-wrap">
       {/* ── Fixed Header ── */}
       <header className="pub-header">
-        <Link
-          className="pub-brand"
-          to="/"
-          style={{ display: 'flex', alignItems: 'center', gap: 10 }}
-        >
-          {headerLogo && (
-            <img
-              src={headerLogo}
-              alt="Logo"
-              style={{
-                height: 38,
-                width: 38,
-                objectFit: 'cover',
-                borderRadius: 8,
-                border: '2px solid rgba(255,255,255,0.25)',
-                flexShrink: 0
-              }}
-            />
-          )}
+       
+<div
+  className="pub-brand"
+  style={{ display: 'flex', alignItems: 'center', gap: 10 }}
+>
+  {headerLogo && (
+    <img
+      src={headerLogo}
+      alt="Logo"
+      style={{
+        height: 38,
+        width: 38,
+        objectFit: 'cover',
+        borderRadius: 8,
+        border: '2px solid rgba(255,255,255,0.25)',
+        flexShrink: 0
+      }}
+    />
+  )}
+  <span>{brandText}</span>
+</div>
+
           <span>{brandText}</span>
-        </Link>
+       
 
         <button
           className={`hamburger${drawerOpen ? ' open' : ''}`}
