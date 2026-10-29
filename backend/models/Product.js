@@ -15,6 +15,10 @@ const Product = sequelize.define('Product', {
     type: DataTypes.TEXT,
     allowNull: true
   },
+  categoria: {
+    type: DataTypes.TEXT,
+    allowNull: true
+  },
   foto_produto: {
     type: DataTypes.BLOB('long'),
     allowNull: true
@@ -26,19 +30,6 @@ const Product = sequelize.define('Product', {
       model: 'clientes',
       key: 'id'
     }
-  },
-  id_categoria: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    references: {
-      model: 'categorias',
-      key: 'id'
-    }
-  },
-  rank: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    defaultValue: 0
   },
   valor: {
     type: DataTypes.DECIMAL(10, 2),

@@ -1,11 +1,11 @@
 const Product = require('../models/Product');
 const Client = require('../models/Client');
-const Category = require('../models/Category');
+const { sequelize } = require('../database/database');
 
 // Campos sem BLOB para listagens
 const LIST_ATTRIBUTES = [
-  'id', 'nome_produto', 'descricao',
-  'id_empresa', 'id_categoria', 'rank', 'valor', 'createdAt', 'updatedAt'
+  'id', 'nome_produto', 'descricao', 'categoria',
+  'id_empresa', 'valor', 'createdAt', 'updatedAt'
 ];
 
 module.exports = {
@@ -16,10 +16,6 @@ module.exports = {
         model: Client,
         as: 'empresa',
         attributes: ['id', 'nome_completo', 'alias']
-      }, {
-        model: Category,
-        as: 'categoria',
-        attributes: ['id', 'nome']
       }],
       order: [['id', 'ASC']]
     });
@@ -33,10 +29,6 @@ module.exports = {
         model: Client,
         as: 'empresa',
         attributes: ['id', 'nome_completo', 'alias']
-      }, {
-        model: Category,
-        as: 'categoria',
-        attributes: ['id', 'nome']
       }],
       order: [['id', 'ASC']]
     });
@@ -48,16 +40,24 @@ module.exports = {
         model: Client,
         as: 'empresa',
         attributes: ['id', 'nome_completo', 'alias']
-      }, {
-        model: Category,
-        as: 'categoria',
-        attributes: ['id', 'nome']
       }]
     });
   },
 
   count() {
     return Product.count();
+  },
+
+  // Conta produtos agrupados por empresa — retorna [{ id_empresa, total_produtos }]
+  countGroupByEmpresa() {
+    return Product.findAll({
+      attributes: [
+        'id_empresa',
+        [sequelize.fn('COUNT', sequelize.col('id')), 'total_produtos']
+      ],
+      group: ['id_empresa'],
+      raw: true
+    });
   },
 
   create(data) {

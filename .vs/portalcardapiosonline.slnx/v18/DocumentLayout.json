@@ -1,0 +1,459 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\components\\LoginModal.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\components\\LoginModal.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Login.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\Login.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Categories.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\Categories.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\App.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\App.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\components\\AdminLayout.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\components\\AdminLayout.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\models\\Product.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\models\\Product.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\repositories\\productRepository.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\repositories\\productRepository.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\services\\productService.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\services\\productService.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Products.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\Products.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\JUNIOR\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-1572877585\\Products.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\database\\database.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\database\\database.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\routes\\productRoutes.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\routes\\productRoutes.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Cardapio.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\Cardapio.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Cardapios.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\Cardapios.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Clients.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\Clients.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\components\\Layout.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\components\\Layout.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\CardapioQrcode.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\src\\pages\\CardapioQrcode.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\README_ADDITIONS.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:frontend\\README_ADDITIONS.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\routes\\categoryRoutes.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\routes\\categoryRoutes.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\models\\Category.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\models\\Category.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\repositories\\categoryRepository.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\repositories\\categoryRepository.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\services\\categoryService.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\services\\categoryService.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\controllers\\categoryController.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:backend\\controllers\\categoryController.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "categoryController.js",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\controllers\\categoryController.js",
+              "RelativeDocumentMoniker": "backend\\controllers\\categoryController.js",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\controllers\\categoryController.js",
+              "RelativeToolTip": "backend\\controllers\\categoryController.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-09-29T19:47:26.44Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "categoryService.js",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\services\\categoryService.js",
+              "RelativeDocumentMoniker": "backend\\services\\categoryService.js",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\services\\categoryService.js",
+              "RelativeToolTip": "backend\\services\\categoryService.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-09-29T19:47:26.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "categoryRepository.js",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\repositories\\categoryRepository.js",
+              "RelativeDocumentMoniker": "backend\\repositories\\categoryRepository.js",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\repositories\\categoryRepository.js",
+              "RelativeToolTip": "backend\\repositories\\categoryRepository.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-09-29T19:47:26.209Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Category.js",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\models\\Category.js",
+              "RelativeDocumentMoniker": "backend\\models\\Category.js",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\models\\Category.js",
+              "RelativeToolTip": "backend\\models\\Category.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-09-29T19:47:26.028Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "categoryRoutes.js",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\routes\\categoryRoutes.js",
+              "RelativeDocumentMoniker": "backend\\routes\\categoryRoutes.js",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\routes\\categoryRoutes.js",
+              "RelativeToolTip": "backend\\routes\\categoryRoutes.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-09-29T19:47:25.887Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "README_ADDITIONS.md",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\README_ADDITIONS.md",
+              "RelativeDocumentMoniker": "frontend\\README_ADDITIONS.md",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\README_ADDITIONS.md",
+              "RelativeToolTip": "frontend\\README_ADDITIONS.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-09-29T17:00:03.202Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "package.json",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\package.json",
+              "RelativeDocumentMoniker": "frontend\\package.json",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\package.json",
+              "RelativeToolTip": "frontend\\package.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwBUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-09-29T16:59:54.255Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "CardapioQrcode.jsx",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\CardapioQrcode.jsx",
+              "RelativeDocumentMoniker": "frontend\\src\\pages\\CardapioQrcode.jsx",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\CardapioQrcode.jsx",
+              "RelativeToolTip": "frontend\\src\\pages\\CardapioQrcode.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-09-29T16:58:20.152Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LoginModal.jsx",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\components\\LoginModal.jsx",
+              "RelativeDocumentMoniker": "frontend\\src\\components\\LoginModal.jsx",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\components\\LoginModal.jsx",
+              "RelativeToolTip": "frontend\\src\\components\\LoginModal.jsx",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAewEcAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-09-29T16:49:25.806Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Login.jsx",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Login.jsx",
+              "RelativeDocumentMoniker": "frontend\\src\\pages\\Login.jsx",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Login.jsx",
+              "RelativeToolTip": "frontend\\src\\pages\\Login.jsx",
+              "ViewState": "AgIAABsAAAAAAAAAAAAewCQAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-09-29T16:48:53.117Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Layout.jsx",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\components\\Layout.jsx",
+              "RelativeDocumentMoniker": "frontend\\src\\components\\Layout.jsx",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\components\\Layout.jsx",
+              "RelativeToolTip": "frontend\\src\\components\\Layout.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwIAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-09-29T16:45:41.196Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "styles.css",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\styles.css",
+              "RelativeDocumentMoniker": "frontend\\src\\styles.css",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\styles.css",
+              "RelativeToolTip": "frontend\\src\\styles.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwHIDAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-09-29T16:42:36.889Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Clients.jsx",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Clients.jsx",
+              "RelativeDocumentMoniker": "frontend\\src\\pages\\Clients.jsx",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Clients.jsx",
+              "RelativeToolTip": "frontend\\src\\pages\\Clients.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwO8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-09-29T16:12:29.375Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Cardapios.jsx",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Cardapios.jsx",
+              "RelativeDocumentMoniker": "frontend\\src\\pages\\Cardapios.jsx",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Cardapios.jsx",
+              "RelativeToolTip": "frontend\\src\\pages\\Cardapios.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-09-29T16:04:10.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Cardapio.jsx",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Cardapio.jsx",
+              "RelativeDocumentMoniker": "frontend\\src\\pages\\Cardapio.jsx",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Cardapio.jsx",
+              "RelativeToolTip": "frontend\\src\\pages\\Cardapio.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwOgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-09-29T15:40:27.339Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "productRoutes.js",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\routes\\productRoutes.js",
+              "RelativeDocumentMoniker": "backend\\routes\\productRoutes.js",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\routes\\productRoutes.js",
+              "RelativeToolTip": "backend\\routes\\productRoutes.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwFUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-09-29T15:20:14.925Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "database.js",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\database\\database.js",
+              "RelativeDocumentMoniker": "backend\\database\\database.js",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\database\\database.js",
+              "RelativeToolTip": "backend\\database\\database.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwCoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-09-29T15:16:04.285Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Categories.jsx",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Categories.jsx",
+              "RelativeDocumentMoniker": "frontend\\src\\pages\\Categories.jsx",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Categories.jsx",
+              "RelativeToolTip": "frontend\\src\\pages\\Categories.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-09-29T14:26:21.731Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "app.js",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\app.js",
+              "RelativeDocumentMoniker": "backend\\app.js",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\app.js",
+              "RelativeToolTip": "backend\\app.js",
+              "ViewState": "AgIAACgAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-09-29T14:25:20.238Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "App.jsx",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\App.jsx",
+              "RelativeDocumentMoniker": "frontend\\src\\App.jsx",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\App.jsx",
+              "RelativeToolTip": "frontend\\src\\App.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwCQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-09-29T14:26:50.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AdminLayout.jsx",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\components\\AdminLayout.jsx",
+              "RelativeDocumentMoniker": "frontend\\src\\components\\AdminLayout.jsx",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\components\\AdminLayout.jsx",
+              "RelativeToolTip": "frontend\\src\\components\\AdminLayout.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwHQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-09-29T14:27:20.252Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Product.js",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\models\\Product.js",
+              "RelativeDocumentMoniker": "backend\\models\\Product.js",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\models\\Product.js",
+              "RelativeToolTip": "backend\\models\\Product.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwCgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-09-29T14:33:46.361Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "productRepository.js",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\repositories\\productRepository.js",
+              "RelativeDocumentMoniker": "backend\\repositories\\productRepository.js",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\repositories\\productRepository.js",
+              "RelativeToolTip": "backend\\repositories\\productRepository.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwD0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-09-29T14:34:01.329Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "productService.js",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\services\\productService.js",
+              "RelativeDocumentMoniker": "backend\\services\\productService.js",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\backend\\services\\productService.js",
+              "RelativeToolTip": "backend\\services\\productService.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwIQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-09-29T14:34:30.205Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Products.jsx",
+              "DocumentMoniker": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Products.jsx",
+              "RelativeDocumentMoniker": "frontend\\src\\pages\\Products.jsx",
+              "ToolTip": "D:\\PROJETOS\\juniorbragaas\\portalcardapiosonline\\frontend\\src\\pages\\Products.jsx",
+              "RelativeToolTip": "frontend\\src\\pages\\Products.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwEQBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-09-29T14:35:10.652Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Products.jsx",
+              "DocumentMoniker": "C:\\Users\\JUNIOR\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-1572877585\\Products.jsx",
+              "ToolTip": "C:\\Users\\JUNIOR\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-1572877585\\Products.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-09-29T14:36:02.301Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

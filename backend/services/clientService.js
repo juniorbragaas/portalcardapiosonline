@@ -1,4 +1,5 @@
 const repository = require('../repositories/clientRepository');
+const productRepository = require('../repositories/productRepository');
 
 // Converte BLOBs para base64 e monta o JSON completo do cliente
 function serialize(client) {
@@ -52,6 +53,8 @@ async function create(body, files) {
     celular:       body.celular      || null,
     descricao:     body.descricao    || null,
     status:        body.status === true || body.status === 'true' || body.status === undefined,
+    latitude:      body.latitude  ? parseFloat(body.latitude)  : null,
+    longitude:     body.longitude ? parseFloat(body.longitude) : null,
     logo:          files?.logo?.[0]?.buffer   || null,
     banner:        files?.banner?.[0]?.buffer || null
   });
@@ -80,6 +83,8 @@ async function update(id, body, files) {
   if (body.celular       !== undefined) client.celular       = body.celular;
   if (body.descricao     !== undefined) client.descricao     = body.descricao;
   if (body.status        !== undefined) client.status        = body.status === true || body.status === 'true';
+  if (body.latitude      !== undefined && body.latitude  !== '') client.latitude  = parseFloat(body.latitude);
+  if (body.longitude     !== undefined && body.longitude !== '') client.longitude = parseFloat(body.longitude);
   if (files?.logo?.[0])                client.logo           = files.logo[0].buffer;
   if (files?.banner?.[0])              client.banner         = files.banner[0].buffer;
 
@@ -106,4 +111,21 @@ async function dashboard() {
   };
 }
 
-module.exports = { list, getById, create, update, remove, dashboard, serialize };
+async function relatorioProdutos() {
+  const clients = await repository.findAll();
+  const contagens = await productRepository.countGroupByEmpresa();
+
+  // Mapa id_empresa → total_produtos
+  const mapa = {};
+  contagens.forEach(c => { mapa[c.id_empresa] = parseInt(c.total_produtos); });
+
+  return clients.map(c => ({
+    id:             c.id,
+    nome_completo:  c.nome_completo,
+    alias:          c.alias,
+    status:         c.status,
+    total_produtos: mapa[c.id] || 0
+  }));
+}
+
+module.exports = { list, getById, create, update, remove, dashboard, relatorioProdutos, serialize };

@@ -8,10 +8,8 @@ import Admin    from './pages/Admin';
 import Users    from './pages/Users';
 import Clients  from './pages/Clients';
 import Products from './pages/Products';
-import Categories from './pages/Categories';
 import Cardapio from './pages/Cardapio';
-import Cardapios from './pages/Cardapios';
-import CardapioQrcode from './pages/CardapioQrcode';
+import CardapiosAdmin from './pages/CardapiosAdmin';
 
 export default function App() {
   return (
@@ -28,9 +26,7 @@ export default function App() {
             <Route path="/admin/usuarios"  element={<Users />} />
             <Route path="/admin/empresas"  element={<Clients />} />
             <Route path="/admin/produtos"  element={<Products />} />
-            <Route path="/admin/categorias" element={<Categories />} />
-            <Route path="/admin/cardapios" element={<Cardapios />} />
-            <Route path="/admin/cardapio-qrcode" element={<CardapioQrcode />} />
+            <Route path="/admin/cardapios"  element={<CardapiosAdmin />} />
           </Route>
         </Route>
       </Route>

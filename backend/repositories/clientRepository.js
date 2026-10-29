@@ -4,6 +4,7 @@ const Client = require('../models/Client');
 const LIST_ATTRIBUTES = [
   'id', 'nome_completo', 'alias', 'endereco',
   'email', 'celular', 'descricao', 'status',
+  'latitude', 'longitude',
   'createdAt', 'updatedAt'
 ];
 

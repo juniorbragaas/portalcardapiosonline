@@ -5,14 +5,13 @@ import api from '../services/api';
 const API = 'http://localhost:3000/api';
 
 const EMPTY = {
-  nome_produto: '', descricao: '', id_empresa: '', id_categoria: '', rank: '', valor: '', foto_produto: null
+  nome_produto: '', descricao: '', categoria: '', id_empresa: '', valor: '', foto_produto: null
 };
 
 export default function Products() {
   const [products,     setProducts]     = useState([]);
   const [empresas,     setEmpresas]     = useState([]);
   const [minhaEmpresa, setMinhaEmpresa] = useState(null);
-  const [categorias,   setCategorias]   = useState([]);
   const [form,         setForm]         = useState(EMPTY);
   const [editing,      setEditing]      = useState(null);
   const [search,       setSearch]       = useState('');
@@ -45,48 +44,15 @@ export default function Products() {
           setMinhaEmpresa(data);
         } catch { /* mantém null */ }
       }
-
-      // CARREGA categorias da empresa do USER
-      try {
-        const { data } = await api.get('/categorias');
-        setCategorias(data);
-      } catch { setCategorias([]); }
     } else {
       try {
         const { data } = await api.get('/clientes');
         setEmpresas(data);
       } catch { /* mantém [] */ }
-
-      // CARREGA todas categorias para ADMIN
-      try {
-        const { data: cats } = await api.get('/categorias');
-        setCategorias(cats);
-      } catch { setCategorias([]); }
     }
   }
 
-  useEffect(() => {
-    load();
-
-    function onReload(e) {
-      if (!e?.detail || e.detail.target === 'products') load();
-    }
-    function onStorage(e) {
-      if (e.key === 'data:reload' && e.newValue) {
-        try {
-          const payload = JSON.parse(e.newValue);
-          if (!payload || payload.target === 'products') load();
-        } catch {}
-      }
-    }
-
-    window.addEventListener('data:reload', onReload);
-    window.addEventListener('storage', onStorage);
-    return () => {
-      window.removeEventListener('data:reload', onReload);
-      window.removeEventListener('storage', onStorage);
-    };
-  }, []);
+  useEffect(() => { load(); }, []);
 
   // Resolve o id da empresa do USER de forma segura
   function resolveEmpresaId() {
@@ -104,12 +70,11 @@ export default function Products() {
       setForm({
         nome_produto: data.nome_produto,
         descricao:    data.descricao || '',
+        categoria:    data.categoria || '',
         id_empresa:   isUser ? resolveEmpresaId() : String(data.id_empresa),
-          id_categoria: data.categoria ? String(data.categoria.id) : '',
-            rank:          data.rank !== undefined && data.rank !== null ? String(data.rank) : '',
-            valor:        String(data.valor),
-            foto_produto: null
-          });
+        valor:        String(data.valor),
+        foto_produto: null
+      });
       setPreview(data.foto_produto || null);
       setAlert(null);
       setEditing(p.id);
@@ -133,9 +98,8 @@ export default function Products() {
     const fd = new FormData();
     fd.append('nome_produto', form.nome_produto);
     fd.append('descricao',    form.descricao);
+    fd.append('categoria',    form.categoria);
     fd.append('id_empresa',   isUser ? resolveEmpresaId() : form.id_empresa);
-    fd.append('id_categoria',  form.id_categoria);
-    fd.append('rank',          form.rank);
     fd.append('valor',        form.valor);
     if (form.foto_produto) fd.append('foto_produto', form.foto_produto);
 
@@ -143,9 +107,6 @@ export default function Products() {
       if (editing === 0) await api.post('/produtos', fd);
       else               await api.put(`/produtos/${editing}`, fd);
       setAlert({ type: 'success', msg: 'Produto salvo com sucesso.' });
-      // Notifica outras abas/componentes que devem recarregar products
-      window.dispatchEvent(new CustomEvent('data:reload', { detail: { target: 'products' } }));
-      localStorage.setItem('data:reload', JSON.stringify({ target: 'products', ts: Date.now() }));
       load();
       setTimeout(close, 1200);
     } catch (err) {
@@ -157,9 +118,6 @@ export default function Products() {
     if (!confirm('Deseja excluir este produto?')) return;
     try {
       await api.delete(`/produtos/${id}`);
-      // Notifica reload para products
-      window.dispatchEvent(new CustomEvent('data:reload', { detail: { target: 'products' } }));
-      localStorage.setItem('data:reload', JSON.stringify({ target: 'products', ts: Date.now() }));
       load();
     } catch (err) {
       alert(err.response?.data?.message || 'Erro ao excluir.');
@@ -167,7 +125,7 @@ export default function Products() {
   }
 
   const filtered = products.filter(p => {
-    const matchSearch = `${p.nome_produto} ${p.descricao || ''}`.toLowerCase().includes(search.toLowerCase());
+    const matchSearch = `${p.nome_produto} ${p.descricao || ''} ${p.categoria || ''}`.toLowerCase().includes(search.toLowerCase());
     const matchEmp    = filterEmp ? String(p.id_empresa) === filterEmp : true;
     return matchSearch && matchEmp;
   });
@@ -228,7 +186,7 @@ export default function Products() {
           <table>
             <thead>
               <tr>
-                <th>ID</th><th>Foto</th><th>Nome</th><th>Valor</th><th>Empresa</th><th>Ações</th>
+                <th>ID</th><th>Foto</th><th>Produto</th><th>Categoria</th><th>Empresa</th><th>Valor</th><th>Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -251,9 +209,15 @@ export default function Products() {
                   </td>
                   <td>
                     <strong>{p.nome_produto}</strong>
+                    {p.descricao && (
+                      <div style={{ fontSize: 12, color: '#9ca3af', marginTop: 2 }}>
+                        {p.descricao.slice(0, 60)}{p.descricao.length > 60 ? '…' : ''}
+                      </div>
+                    )}
                   </td>
-                  <td><strong>{fmtMoney(p.valor)}</strong></td>
+                  <td>{p.categoria || '—'}</td>
                   <td>{p.empresa?.nome_completo || `Empresa #${p.id_empresa}`}</td>
+                  <td><strong>{fmtMoney(p.valor)}</strong></td>
                   <td>
                     <div className="td-actions">
                       <button className="btn btn-outline btn-sm btn-icon" onClick={() => openEdit(p)}>
@@ -268,7 +232,7 @@ export default function Products() {
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={6} style={{ textAlign: 'center', color: '#9ca3af', padding: 32 }}>
+                  <td colSpan={7} style={{ textAlign: 'center', color: '#9ca3af', padding: 32 }}>
                     Nenhum produto encontrado.
                   </td>
                 </tr>
@@ -305,6 +269,15 @@ export default function Products() {
                 />
               </div>
 
+              <div className="form-group">
+                <label>Categoria</label>
+                <input
+                  value={form.categoria}
+                  onChange={e => setForm({ ...form, categoria: e.target.value })}
+                  placeholder="Ex: Bebidas, Sobremesas, Pratos principais..."
+                />
+              </div>
+
               <div className="form-row">
                 <div className="form-group">
                   <label>Empresa *</label>
@@ -332,31 +305,6 @@ export default function Products() {
                     </select>
                   )}
                 </div>
-
-                <div className="form-group">
-                  <label>Categoria</label>
-                  <select
-                    value={form.id_categoria}
-                    onChange={e => setForm({ ...form, id_categoria: e.target.value })}
-                  >
-                    <option value="">Nenhuma</option>
-                    {categorias.map(c => (
-                      <option key={c.id} value={String(c.id)}>{c.nome}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Rank (opcional)</label>
-                  <input
-                    type="number"
-                    min="0"
-                    value={form.rank}
-                    onChange={e => setForm({ ...form, rank: e.target.value })}
-                    placeholder="0"
-                  />
-                </div>
-
                 <div className="form-group">
                   <label>Valor (R$) *</label>
                   <input

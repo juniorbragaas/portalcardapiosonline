@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Plus, Pencil, Trash2, Search, Image as ImageIcon, ExternalLink } from 'lucide-react';
+import { Plus, Pencil, Trash2, Search, Image as ImageIcon, ExternalLink, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
 const EMPTY = {
   nome_completo: '', alias: '', endereco: '', email: '',
   celular: '', descricao: '', status: true,
+  latitude: '', longitude: '',
   logo: null, banner: null
 };
 
@@ -24,30 +25,7 @@ export default function Clients() {
     const { data } = await api.get('/clientes');
     setClients(data);
   }
-  useEffect(() => {
-    load();
-
-    function onReload(e) {
-      if (!e?.detail || e.detail.target === 'clients') load();
-      // atualiza thumbs dinamicamente: força re-render incrementando token
-      if (e?.detail && e.detail.refreshThumbs) setPreviews(p => ({ ...p }));
-    }
-    function onStorage(e) {
-      if (e.key === 'data:reload' && e.newValue) {
-        try {
-          const payload = JSON.parse(e.newValue);
-          if (!payload || payload.target === 'clients') load();
-        } catch {}
-      }
-    }
-
-    window.addEventListener('data:reload', onReload);
-    window.addEventListener('storage', onStorage);
-    return () => {
-      window.removeEventListener('data:reload', onReload);
-      window.removeEventListener('storage', onStorage);
-    };
-  }, []);
+  useEffect(() => { load(); }, []);
 
   function openNew() {
     setForm(EMPTY);
@@ -63,7 +41,10 @@ export default function Clients() {
       nome_completo: data.nome_completo, alias: data.alias || '',
       endereco: data.endereco || '', email: data.email || '',
       celular: data.celular || '', descricao: data.descricao || '',
-      status: data.status, logo: null, banner: null
+      status: data.status,
+      latitude:  data.latitude  != null ? String(data.latitude)  : '',
+      longitude: data.longitude != null ? String(data.longitude) : '',
+      logo: null, banner: null
     });
     setPreviews({
       logo:   data.logo   || null,
@@ -88,13 +69,13 @@ export default function Clients() {
       if (v instanceof File) fd.append(k, v);
       else if (v !== null)   fd.append(k, String(v));
     });
+    // Garante que latitude/longitude vazios sejam enviados como string vazia
+    fd.append('latitude', form.latitude || '');
+    fd.append('longitude', form.longitude || '');
     try {
       if (editing === 0) await api.post('/clientes', fd);
       else               await api.put(`/clientes/${editing}`, fd);
       setAlert({ type: 'success', msg: 'Empresa salva com sucesso.' });
-      // Notifica outras abas/componentes que devem recarregar clients
-      window.dispatchEvent(new CustomEvent('data:reload', { detail: { target: 'clients', refreshThumbs: true } }));
-      localStorage.setItem('data:reload', JSON.stringify({ target: 'clients', ts: Date.now(), refreshThumbs: true }));
       load();
       setTimeout(close, 1200);
     } catch (err) {
@@ -104,12 +85,7 @@ export default function Clients() {
 
   async function remove(id) {
     if (!confirm('Deseja excluir esta empresa?')) return;
-    try { await api.delete(`/clientes/${id}`);
-      // Notifica reload para clients
-      window.dispatchEvent(new CustomEvent('data:reload', { detail: { target: 'clients' } }));
-      localStorage.setItem('data:reload', JSON.stringify({ target: 'clients', ts: Date.now() }));
-      load();
-    }
+    try { await api.delete(`/clientes/${id}`); load(); }
     catch (err) { alert(err.response?.data?.message || 'Erro.'); }
   }
 
@@ -231,6 +207,48 @@ export default function Clients() {
                 <label>Endereço</label>
                 <input value={form.endereco} onChange={e => setForm({ ...form, endereco: e.target.value })} />
               </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Latitude</label>
+                  <input
+                    type="number"
+                    step="any"
+                    value={form.latitude}
+                    onChange={e => setForm({ ...form, latitude: e.target.value })}
+                    placeholder="Ex: -23.5505"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Longitude</label>
+                  <input
+                    type="number"
+                    step="any"
+                    value={form.longitude}
+                    onChange={e => setForm({ ...form, longitude: e.target.value })}
+                    placeholder="Ex: -46.6333"
+                  />
+                </div>
+              </div>
+
+              {/* Mini mapa — Google Maps embed */}
+              {form.latitude && form.longitude &&
+               !isNaN(parseFloat(form.latitude)) &&
+               !isNaN(parseFloat(form.longitude)) && (
+                <div className="form-group">
+                  <label><MapPin size={13} style={{ display: 'inline', marginRight: 4 }} />Prévia do mapa</label>
+                  <div className="mini-map-wrap">
+                    <iframe
+                      title="Mini mapa"
+                      src={`https://maps.google.com/maps?q=${parseFloat(form.latitude)},${parseFloat(form.longitude)}&z=15&output=embed`}
+                      width="100%"
+                      height="220"
+                      style={{ border: 0, borderRadius: 8 }}
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              )}
 
               <div className="form-group">
                 <label>Descrição</label>

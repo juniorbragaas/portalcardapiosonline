@@ -72,10 +72,10 @@ export default function AdminLayout() {
             <span className="nav-label">Produtos</span>
           </NavLink>
 
-          {/* Categorias — todos */}
-          <NavLink to="/admin/categorias">
-            <Building2 size={18} />
-            <span className="nav-label">Categorias</span>
+          {/* Cardápios — todos */}
+          <NavLink to="/admin/cardapios">
+            <QrCode size={18} />
+            <span className="nav-label">Cardápios</span>
           </NavLink>
 
           <div className="sidebar-section">Sistema</div>
@@ -85,27 +85,12 @@ export default function AdminLayout() {
             <span className="nav-label">Página inicial</span>
           </NavLink>
 
-          {/* Cardápios públicos — só ADMIN */}
-          {isAdmin && (
-            <NavLink to="/admin/cardapios">
-              <ExternalLink size={18} />
-              <span className="nav-label">Cardápios</span>
-            </NavLink>
-          )}
-
           {/* Ir para página da empresa — só USER */}
           {!isAdmin && empresaAlias && (
-            <>
-              <NavLink to="/admin/cardapio-qrcode">
-                <QrCode size={18} />
-                <span className="nav-label">Cardápio QRCODE</span>
-              </NavLink>
-
-              <NavLink to={`/${empresaAlias}`}>
-                <ExternalLink size={18} />
-                <span className="nav-label">Ver cardápio</span>
-              </NavLink>
-            </>
+            <NavLink to={`/${empresaAlias}`}>
+              <ExternalLink size={18} />
+              <span className="nav-label">Ver cardápio</span>
+            </NavLink>
           )}
         </nav>
 

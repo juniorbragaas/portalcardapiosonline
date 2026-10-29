@@ -8,7 +8,6 @@ export default function Layout() {
   const [loginOpen,   setLoginOpen]   = useState(false);
   const [headerTitle, setHeaderTitle] = useState(null); // null = padrão
   const [headerLogo,  setHeaderLogo]  = useState(null); // null = sem logo
-  const [headerClickable, setHeaderClickable] = useState(true); // controla se a marca é um link
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const user  = JSON.parse(localStorage.getItem('user') || 'null');
@@ -32,50 +31,27 @@ export default function Layout() {
     <div className="pub-wrap">
       {/* ── Fixed Header ── */}
       <header className="pub-header">
-        {headerClickable ? (
-          <Link
-            className="pub-brand"
-            to="/"
-            style={{ display: 'flex', alignItems: 'center', gap: 10 }}
-          >
-            {headerLogo && (
-              <img
-                src={headerLogo}
-                alt="Logo"
-                style={{
-                  height: 38,
-                  width: 38,
-                  objectFit: 'cover',
-                  borderRadius: 8,
-                  border: '2px solid rgba(255,255,255,0.25)',
-                  flexShrink: 0
-                }}
-              />
-            )}
-            <span>{brandText}</span>
-          </Link>
-        ) : (
-          <div
-            className="pub-brand"
-            style={{ display: 'flex', alignItems: 'center', gap: 10 }}
-          >
-            {headerLogo && (
-              <img
-                src={headerLogo}
-                alt="Logo"
-                style={{
-                  height: 38,
-                  width: 38,
-                  objectFit: 'cover',
-                  borderRadius: 8,
-                  border: '2px solid rgba(255,255,255,0.25)',
-                  flexShrink: 0
-                }}
-              />
-            )}
-            <span>{brandText}</span>
-          </div>
-        )}
+        <Link
+          className="pub-brand"
+          to="/"
+          style={{ display: 'flex', alignItems: 'center', gap: 10 }}
+        >
+          {headerLogo && (
+            <img
+              src={headerLogo}
+              alt="Logo"
+              style={{
+                height: 38,
+                width: 38,
+                objectFit: 'cover',
+                borderRadius: 8,
+                border: '2px solid rgba(255,255,255,0.25)',
+                flexShrink: 0
+              }}
+            />
+          )}
+          <span>{brandText}</span>
+        </Link>
 
         <button
           className={`hamburger${drawerOpen ? ' open' : ''}`}
@@ -133,7 +109,7 @@ export default function Layout() {
 
       {/* ── Main Content ── */}
       <main className="pub-main">
-        <Outlet context={{ setHeaderTitle, setHeaderLogo, setHeaderClickable }} />
+        <Outlet context={{ setHeaderTitle, setHeaderLogo }} />
       </main>
 
       {/* ── Fixed Footer ── */}

@@ -89,6 +89,41 @@ router.get('/dashboard', controller.dashboard);
 
 /**
  * @swagger
+ * /api/clientes/relatorio-produtos:
+ *   get:
+ *     summary: Retorna empresas com a contagem total de produtos
+ *     tags: [Clientes]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Relatório de produtos por empresa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   nome_completo:
+ *                     type: string
+ *                   alias:
+ *                     type: string
+ *                   status:
+ *                     type: boolean
+ *                   total_produtos:
+ *                     type: integer
+ */
+router.get('/relatorio-produtos', async (req, res, next) => {
+  try {
+    res.json(await clientService.relatorioProdutos());
+  } catch (err) { next(err); }
+});
+
+/**
+ * @swagger
  * /api/clientes:
  *   get:
  *     summary: Lista todos os clientes (sem imagens para performance)
