@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Plus, Pencil, Trash2, Search, Image as ImageIcon, ExternalLink, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
@@ -12,6 +12,24 @@ const EMPTY = {
 
 const API = 'http://localhost:3000/api';
 
+/* Monta endereço completo (formato BR) a partir do objeto address do Nominatim */
+function formatarEndereco(addr) {
+  const rua    = [addr.road, addr.house_number].filter(Boolean).join(', ');
+  const bairro = addr.suburb || addr.neighbourhood || '';
+  const cidade = addr.city || addr.town || addr.village || addr.municipality || '';
+  const estado = addr.state || '';
+  const cep    = addr.postcode || '';
+
+  const partes = [];
+  if (rua)    partes.push(rua);
+  if (bairro) partes.push(bairro);
+  if (cidade && estado) partes.push(`${cidade} - ${estado}`);
+  else if (cidade)      partes.push(cidade);
+  if (cep)   partes.push(cep);
+
+  return partes.join(' - ');
+}
+
 export default function Clients() {
   const [clients,  setClients]  = useState([]);
   const [form,     setForm]     = useState(EMPTY);
@@ -19,6 +37,8 @@ export default function Clients() {
   const [search,   setSearch]   = useState('');
   const [previews, setPreviews] = useState({ logo: null, banner: null });
   const [alert,    setAlert]    = useState(null);
+  const [geoLoading, setGeoLoading] = useState(false);
+  const skipGeo = useRef(false);
   const navigate = useNavigate();
 
   async function load() {
@@ -27,7 +47,39 @@ export default function Clients() {
   }
   useEffect(() => { load(); }, []);
 
+  /* ── Reverse geocoding: ao alterar lat/lon, busca o endereço completo ── */
+  useEffect(() => {
+    // Pula a primeira execução (carregamento de dados do edit/novo)
+    if (skipGeo.current) { skipGeo.current = false; return; }
+
+    const lat = parseFloat(form.latitude);
+    const lon = parseFloat(form.longitude);
+    if (isNaN(lat) || isNaN(lon)) return;
+
+    const timer = setTimeout(async () => {
+      setGeoLoading(true);
+      try {
+        const res = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&addressdetails=1&accept-language=pt-BR`
+        );
+        if (!res.ok) throw new Error('reverse geocode falhou');
+        const data = await res.json();
+        if (data?.address) {
+          const completo = formatarEndereco(data.address);
+          if (completo) setForm(f => ({ ...f, endereco: completo }));
+        }
+      } catch {
+        /* falha silenciosa — mantém o endereço atual */
+      } finally {
+        setGeoLoading(false);
+      }
+    }, 1200);
+
+    return () => clearTimeout(timer);
+  }, [form.latitude, form.longitude]);
+
   function openNew() {
+    skipGeo.current = true;
     setForm(EMPTY);
     setPreviews({ logo: null, banner: null });
     setAlert(null);
@@ -35,6 +87,7 @@ export default function Clients() {
   }
 
   async function openEdit(c) {
+    skipGeo.current = true;
     // Busca registro completo (com BLOBs em base64) para mostrar imagens existentes
     const { data } = await api.get(`/clientes/${c.id}`);
     setForm({
@@ -204,8 +257,9 @@ export default function Clients() {
               </div>
 
               <div className="form-group">
-                <label>Endereço</label>
+                <label>Endereço {geoLoading && <small className="form-hint">— buscando no mapa…</small>}</label>
                 <input value={form.endereco} onChange={e => setForm({ ...form, endereco: e.target.value })} />
+                <small className="form-help">O endereço é preenchido automaticamente ao informar latitude e longitude.</small>
               </div>
 
               <div className="form-row">

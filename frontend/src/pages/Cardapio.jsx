@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useOutletContext } from 'react-router-dom';
-import { Search, UtensilsCrossed, Image as ImageIcon, MapPin, Mail, Phone, ArrowLeft, X } from 'lucide-react';
+import { Search, UtensilsCrossed, Image as ImageIcon, MapPin, Mail, Phone, ArrowLeft, X, MapPinned, ExternalLink } from 'lucide-react';
 import axios from 'axios';
 
 const publicApi = axios.create({ baseURL: 'http://localhost:3000/api' });
@@ -60,6 +60,56 @@ function ProdutoModal({ produto, onClose }) {
   );
 }
 
+/* ── Modal de mapa — Google Maps embed ───────────────────────── */
+function MapaModal({ empresa, onClose }) {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    function onKey(e) { if (e.key === 'Escape') onClose(); }
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [onClose]);
+
+  // Query combina nome + endereço para melhor precisão no mapa
+  const query = encodeURIComponent(`${empresa.nome_completo} ${empresa.endereco}`);
+  const embedSrc = `https://maps.google.com/maps?q=${query}&output=embed`;
+  const linkMaps = `https://www.google.com/maps/search/?api=1&query=${query}`;
+
+  return (
+    <div className="modal-overlay" onMouseDown={onClose}>
+      <div className="modal mapa-modal" onMouseDown={e => e.stopPropagation()}>
+        <div className="modal-header">
+          <h2>
+            <MapPinned size={18} style={{ verticalAlign: '-3px', marginRight: 6 }} />
+            Localização
+          </h2>
+          <button onClick={onClose} aria-label="Fechar">×</button>
+        </div>
+        <p className="mapa-modal-address">
+          <MapPin size={14} /> {empresa.endereco}
+        </p>
+        <iframe
+          className="mapa-iframe"
+          src={embedSrc}
+          loading="lazy"
+          title={`Mapa de ${empresa.nome_completo}`}
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+        <a
+          className="mapa-link"
+          href={linkMaps}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <ExternalLink size={15} /> Abrir no Google Maps
+        </a>
+      </div>
+    </div>
+  );
+}
+
 /* ── Página principal ────────────────────────────────────────── */
 export default function Cardapio() {
   const { alias } = useParams();
@@ -71,6 +121,7 @@ export default function Cardapio() {
   const [loading,        setLoading]        = useState(true);
   const [notFound,       setNotFound]       = useState(false);
   const [produtoSelecionado, setProdutoSelecionado] = useState(null);
+  const [mapaAberto,         setMapaAberto]         = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -161,6 +212,15 @@ export default function Cardapio() {
             {empresa.endereco && (
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, marginRight: 12 }}>
                 <MapPin size={13} /> {empresa.endereco}
+                <button
+                  type="button"
+                  className="map-btn"
+                  onClick={() => setMapaAberto(true)}
+                  aria-label="Ver localização no mapa"
+                  title="Ver no mapa"
+                >
+                  <MapPinned size={14} />
+                </button>
               </span>
             )}
             {empresa.email && (
@@ -265,6 +325,14 @@ export default function Cardapio() {
         <ProdutoModal
           produto={produtoSelecionado}
           onClose={() => setProdutoSelecionado(null)}
+        />
+      )}
+
+      {/* Modal de mapa */}
+      {mapaAberto && empresa.endereco && (
+        <MapaModal
+          empresa={empresa}
+          onClose={() => setMapaAberto(false)}
         />
       )}
     </>
