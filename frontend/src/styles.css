@@ -609,7 +609,10 @@ tr:hover td { background: #fafafa; }
 /* ── MODAL FULLPAGE DE PRODUTO ──────────────────────────────── */
 .produto-fullpage {
   position: fixed;
-  inset: 0;
+  top: var(--header);
+  bottom: var(--footer);
+  left: 0;
+  right: 0;
   z-index: 400;
   background: var(--card);
   display: flex;
@@ -620,7 +623,7 @@ tr:hover td { background: #fafafa; }
 
 .produto-fullpage-close {
   position: fixed;
-  top: 16px;
+  top: calc(var(--header) + 16px);
   right: 16px;
   z-index: 401;
   background: #000000aa;
@@ -639,7 +642,7 @@ tr:hover td { background: #fafafa; }
 
 .produto-fullpage-img {
   width: 100%;
-  max-height: 55vh;
+  max-height: 45vh;
   object-fit: cover;
   display: block;
   flex-shrink: 0;
@@ -692,15 +695,15 @@ tr:hover td { background: #fafafa; }
   }
   .produto-fullpage-img {
     width: 50%;
-    max-height: 100vh;
-    height: 100vh;
+    max-height: none;
+    height: 100%;
     position: sticky;
     top: 0;
     object-fit: cover;
   }
   .produto-fullpage-placeholder {
     width: 50%;
-    height: 100vh;
+    height: 100%;
     position: sticky;
     top: 0;
   }
@@ -1136,6 +1139,226 @@ tr:hover td { background: #fafafa; }
 }
 .chart-empty svg { color: var(--border); margin-bottom: 12px; }
 .chart-empty p   { font-size: 15px; }
+
+/* ── Mapa de estabelecimentos (Dashboard) ───────────────────── */
+.map-container {
+  width: 100%;
+  height: 420px;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 1;
+  position: relative;
+}
+
+/* Marcador (divIcon do Leaflet) */
+.map-pin {
+  background: #3b82f6;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+/* Label permanente acima do marcador */
+.leaflet-tooltip.map-label {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1f2937;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+}
+.leaflet-tooltip.map-label::before {
+  display: none;
+}
+
+/* Aviso quando não há coordenadas */
+.map-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ── Cards de estabelecimentos (Home) ───────────────────────── */
+.empresas-section { margin-top: 28px; }
+
+.empresas-section-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.empresas-section-head h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0;
+  color: var(--text);
+}
+.empresas-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.empresas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.empresa-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 12px #00000008;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.15s;
+}
+.empresa-card:hover { box-shadow: 0 4px 20px #00000012; }
+
+.empresa-card-banner-wrap {
+  height: 120px;
+  background: var(--bg);
+  overflow: hidden;
+}
+.empresa-card-banner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.empresa-card-banner-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--border);
+}
+
+.empresa-card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+.empresa-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.empresa-card-logo-wrap { flex-shrink: 0; }
+.empresa-card-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid var(--border);
+}
+.empresa-card-logo-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+
+.empresa-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.empresa-card-link {
+  color: inherit;
+  text-decoration: none;
+}
+.empresa-card-link:hover {
+  color: var(--primary);
+}
+
+.empresa-card-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  margin-top: auto;
+}
+.empresa-card-btn:hover { opacity: 0.88; }
+
+/* Offset para anchor links (header fixo) */
+#mapa-estabelecimentos,
+#estabelecimentos {
+  scroll-margin-top: 80px;
+}
+
+/* Estado vazio dos cards */
+.empresas-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--muted);
+}
+.empresas-empty svg { color: var(--border); margin-bottom: 12px; }
+.empresas-empty p   { font-size: 15px; }
+
+/* Paginação */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 28px;
+}
+.pagination-info {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .empresas-grid { grid-template-columns: 1fr; }
+}
 
 /* ── Mini mapa (cadastro de clientes) ───────────────────────── */
 .mini-map-wrap {

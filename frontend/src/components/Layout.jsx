@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Outlet, Link, useNavigate } from 'react-router-dom';
-import { Home, ShieldCheck, LogOut } from 'lucide-react';
+import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Home, ShieldCheck, LogOut, MapPin, Store } from 'lucide-react';
 import LoginModal from './LoginModal';
 
 export default function Layout() {
@@ -9,6 +9,7 @@ export default function Layout() {
   const [headerTitle, setHeaderTitle] = useState(null); // null = padrão
   const [headerLogo,  setHeaderLogo]  = useState(null); // null = sem logo
   const navigate = useNavigate();
+  const location = useLocation();
   const token = localStorage.getItem('token');
   const user  = JSON.parse(localStorage.getItem('user') || 'null');
 
@@ -23,6 +24,19 @@ export default function Layout() {
     setDrawerOpen(false);
     if (token) navigate('/admin');
     else setLoginOpen(true);
+  }
+
+  // Rola até uma seção da Home — na mesma página ou navegando primeiro
+  function scrollToSection(id) {
+    setDrawerOpen(false);
+    if (location.pathname === '/') {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
+    }
   }
 
   const brandText = headerTitle ?? 'Cardapios Online - Sistemas';
@@ -53,7 +67,7 @@ export default function Layout() {
   <span>{brandText}</span>
 </div>
 
-          <span>{brandText}</span>
+          
        
 
         <button
@@ -91,9 +105,21 @@ export default function Layout() {
             </div>
 
             <div className="drawer-nav">
-              <Link to="/" onClick={() => setDrawerOpen(false)}>
+              <Link to={location.pathname} onClick={() => setDrawerOpen(false)}>
                 <Home size={18} /> Início
               </Link>
+
+              {location.pathname === '/' && (
+                <>
+                  <button onClick={() => scrollToSection('mapa-estabelecimentos')}>
+                    <MapPin size={18} /> Mapa de Estabelecimentos
+                  </button>
+
+                  <button onClick={() => scrollToSection('estabelecimentos')}>
+                    <Store size={18} /> Estabelecimentos
+                  </button>
+                </>
+              )}
 
               <button onClick={openAdmin}>
                 <ShieldCheck size={18} />

@@ -53,6 +53,23 @@ router.get('/minha-empresa', authenticate, userOrAdmin, async (req, res, next) =
   } catch (err) { next(err); }
 });
 
+// ── Rota pública: locais para o mapa (apenas dados essenciais) ──────────
+// Retorna id, nome_completo, alias, latitude e longitude de empresas
+// ativas que possuam coordenadas — sem dados sensíveis.
+router.get('/mapa/locais', async (req, res, next) => {
+  try {
+    const clientes = await Client.findAll({
+      attributes: ['id', 'nome_completo', 'alias', 'latitude', 'longitude'],
+      where: { status: true },
+      order: [['nome_completo', 'ASC']]
+    });
+    const locais = clientes
+      .map(c => c.toJSON())
+      .filter(c => c.latitude != null && c.longitude != null);
+    res.json(locais);
+  } catch (err) { next(err); }
+});
+
 router.use(authenticate, adminOnly);
 
 /**

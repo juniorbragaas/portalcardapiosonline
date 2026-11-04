@@ -5,12 +5,14 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import api from '../services/api';
+import MapaEstabelecimentos from '../components/MapaEstabelecimentos';
 
 export default function Admin() {
   const [stats, setStats]       = useState(null);
   const [relatorio, setRelatorio] = useState([]);
   const [selected, setSelected]   = useState([]);   // IDs selecionados
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [clientes, setClientes]   = useState([]);    // clientes com lat/lng p/ mapa
   const dropdownRef = useRef(null);
 
   const user    = JSON.parse(localStorage.getItem('user') || '{}');
@@ -23,6 +25,7 @@ export default function Admin() {
       setRelatorio(data);
       setSelected(data.map(c => c.id)); // seleciona todos por padrão
     });
+    api.get('/clientes').then(({ data }) => setClientes(data));
   }, []);
 
   // Fecha o dropdown ao clicar fora
@@ -179,6 +182,9 @@ export default function Admin() {
           </div>
         )}
       </div>
+
+      {/* Mapa com todos os estabelecimentos */}
+      <MapaEstabelecimentos clientes={clientes} />
     </section>
   );
 }

@@ -72,9 +72,12 @@ function MapaModal({ empresa, onClose }) {
     };
   }, [onClose]);
 
-  // Query combina nome + endereço para melhor precisão no mapa
-  const query = encodeURIComponent(`${empresa.nome_completo} ${empresa.endereco}`);
-  const embedSrc = `https://maps.google.com/maps?q=${query}&output=embed`;
+  // Usa latitude/longitude cadastrados quando disponíveis; senão usa nome + endereço
+  const hasCoords = empresa.latitude != null && empresa.longitude != null;
+  const query = hasCoords
+    ? `${empresa.latitude},${empresa.longitude}`
+    : encodeURIComponent(`${empresa.nome_completo} ${empresa.endereco}`);
+  const embedSrc = `https://maps.google.com/maps?q=${query}&z=16&output=embed`;
   const linkMaps = `https://www.google.com/maps/search/?api=1&query=${query}`;
 
   return (
@@ -88,7 +91,7 @@ function MapaModal({ empresa, onClose }) {
           <button onClick={onClose} aria-label="Fechar">×</button>
         </div>
         <p className="mapa-modal-address">
-          <MapPin size={14} /> {empresa.endereco}
+          <MapPin size={14} /> {empresa.endereco || `${empresa.latitude}, ${empresa.longitude}`}
         </p>
         <iframe
           className="mapa-iframe"
@@ -209,9 +212,9 @@ export default function Cardapio() {
             {empresa.descricao && (
               <span style={{ display: 'block', marginBottom: 4 }}>{empresa.descricao}</span>
             )}
-            {empresa.endereco && (
+            {(empresa.endereco || (empresa.latitude != null && empresa.longitude != null)) && (
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, marginRight: 12 }}>
-                <MapPin size={13} /> {empresa.endereco}
+                {empresa.endereco && (<><MapPin size={13} /> {empresa.endereco}</>)}
                 <button
                   type="button"
                   className="map-btn"
@@ -329,7 +332,7 @@ export default function Cardapio() {
       )}
 
       {/* Modal de mapa */}
-      {mapaAberto && empresa.endereco && (
+      {mapaAberto && (empresa.endereco || (empresa.latitude != null && empresa.longitude != null)) && (
         <MapaModal
           empresa={empresa}
           onClose={() => setMapaAberto(false)}
